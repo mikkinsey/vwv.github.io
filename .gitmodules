@@ -1,0 +1,3 @@
+[submodule "themes/siphandon"]
+	path = themes/siphandon
+	url = git@bitbucket.org:MiCHiLU/siphandon.git
