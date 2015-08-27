@@ -1,0 +1,30 @@
+title: サンプルサイト
+copyright: '&copy;2015 サンプルサイト'
+
+#disqusShortname: sample
+baseurl: http://michilu.github.io/itchy-turtle/
+languageCode: ja-jp
+metaDataFormat: yaml
+theme: siphandon
+
+params:
+  # Google Analytics API key.
+  ga_api_key: sample
+  # Google AdSense
+  #adsbygoogle_ad_client: ca-pub-1234567890
+  #adsbygoogle_ad_slot_sm: 1234567890
+  #adsbygoogle_ad_slot_lg: 1234567890
+  # Mixpanel API key.
+  # mixpanel_api_key: Your Mixpanel API key
+  avatar: /profile.jpg
+  author: サンプル
+  link_author: https://plus.google.com/sample
+  mobile_title: ｻﾝﾌﾟﾙｻｲﾄ
+  subtitle: サンプルサイト
+  bio: サンプルサイト
+
+  # menus
+  #menu_home: 特集･連載
+  menu_main:
+    name: サンプル
+    category: sample

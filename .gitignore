@@ -1,0 +1,17 @@
+.DS_Store
+/.cache
+/.coverage
+/.sass-cache
+/Gemfile.lock
+/Makefile
+/public
+tags
+
+syntax: glob
+
+*.clean
+*.so
+*.sw?
+*~
+
+syntax: regexp

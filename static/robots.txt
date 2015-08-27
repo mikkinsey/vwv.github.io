@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /
+#Allow: /
+Disallow: /categories/
+Disallow: /tags/
+Disallow: /*/index.html
+
+#Sitemap: https://localhost/sitemap.xml

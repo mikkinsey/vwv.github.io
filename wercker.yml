@@ -1,0 +1,51 @@
+# https://github.com/MiCHiLU/docker-deploy-gh-pages
+box: michilu/deploy-gh-pages
+build:
+  steps:
+    # git submodule init
+    - script:
+      name: git submodule
+      code: |
+        echo -e "#\!/bin/sh\nssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i ${WERCKER_SOURCE_DIR}/.ssh/id_rsa \$1 \$2" >${WERCKER_SOURCE_DIR}/gitssh.sh
+        chmod 755 gitssh.sh
+        export GIT_SSH=${WERCKER_SOURCE_DIR}/gitssh.sh
+        echo "export GIT_SSH=${WERCKER_SOURCE_DIR}/gitssh.sh"|tee -a /etc/profile
+        cat ${WERCKER_SOURCE_DIR}/gitssh.sh
+        mkdir -p ${WERCKER_SOURCE_DIR}/.ssh
+        chmod 755 ${WERCKER_SOURCE_DIR}/.ssh
+        echo -e "${ID_RSA_PRIVATE}" >${WERCKER_SOURCE_DIR}/.ssh/id_rsa
+        chmod 600 ${WERCKER_SOURCE_DIR}/.ssh/id_rsa
+        git submodule update --init --recursive
+
+    # set Gemfile
+    - script:
+      name: set Gemfile
+      code: |
+        if [ ! -e Gemfile ]; then \
+          ln -s themes/siphandon/assets/Gemfile;\
+          ls -al Gemfile;\
+        fi
+    - bundle-install:
+      binstubs: true
+      jobs: 4
+    # Build related files
+    - script:
+      name: make
+      code: |
+        export PATH="$PATH:${WERCKER_SOURCE_DIR}/bin"
+        echo "export PATH=$PATH:${WERCKER_SOURCE_DIR}/bin"|tee -a /etc/profile
+        make --makefile=themes/siphandon/assets/Makefile
+
+    # https://github.com/ArjenSchwarz/wercker-step-hugo-build
+    - arjen/hugo-build:
+      version: '0.14'
+deploy:
+  steps:
+    # https://github.com/SamuelDebruyn/wercker-step-minify
+    - samueldebruyn/minify
+    # https://github.com/lvivier/step-gh-pages
+    - lukevivier/gh-pages:
+      basedir: public
+      #domain: example.com
+      repo: MiCHiLU/itchy-turtle
+      token: $GITHUB_TOKEN
