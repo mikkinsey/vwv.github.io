@@ -47,5 +47,5 @@ deploy:
     - lukevivier/gh-pages:
       basedir: public
       #domain: example.com
-      repo: MiCHiLU/itchy-turtle
+      repo: vwv/vwv.github.io
       token: $GITHUB_TOKEN
